@@ -74,12 +74,13 @@ class Routes {
     }
 
     private postOrdenador = async (req: Request, res: Response) => {
-        const { modelo, fabricante, fecha_montaje, precio_del_pc, cantidad, RAM, tipo, comprador} = req.body
+        const { modelo, fabricante, fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, tipo, comprador} = req.body
         await db.conectarBD()
         const dSchema={
             _modelo: modelo,
             _fabricante: fabricante,
             _fecha_montaje: fecha_montaje,
+            _fecha_garantia: fecha_garantia,
             _precio_del_pc: precio_del_pc,
             _cantidad: cantidad,
             _RAM: RAM,
@@ -95,13 +96,14 @@ class Routes {
     
     private modificaOrdenador = async (req: Request, res: Response) => {
         const { modelo } = req.params
-        const { fabricante, fecha_montaje, precio_del_pc, cantidad, RAM, tipo, comprador} = req.body
+        const { fabricante, fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, tipo, comprador} = req.body
         await db.conectarBD()
         await Ordenadores.findOneAndUpdate(
                 { _modelo: modelo }, 
                 {
                 _fabricante: fabricante,
                 _fecha_montaje: fecha_montaje,
+                _fecha_garantia: fecha_garantia,
                 _precio_del_pc: precio_del_pc,
                 _cantidad: cantidad,
                 _RAM: RAM,

@@ -14,6 +14,7 @@ const OrdenadorSchema = new Schema({
     _modelo: String,
     _fabricante: String,
     _fecha_montaje: Date,
+    _fecha_garantia: Date,
     _precio_del_pc: Number,
     _cantidad: Number,
     _RAM: Number,
