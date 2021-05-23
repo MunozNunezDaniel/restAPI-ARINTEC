@@ -1,5 +1,5 @@
 ###
-GET https://mi-1api-rest.herokuapp.com//ordenador
+GET https://mi-1api-rest.herokuapp.com/ordenador
 GET http://localhost:3000/ordenador
 //Obtiene todos los ordenadores
 ###
@@ -9,19 +9,19 @@ GET http://localhost:3000/ordenador/:modelo
 
 
 ###
-POST https://mi-1api-rest.herokuapp.com//ordenadorN
+POST https://mi-1api-rest.herokuapp.com/ordenadorN
 GET http://localhost:3000/ordenadorN
 //Añadir nuevo ordenador
 Content-Type: application/json
 {
-    "modelo": "asdfasd",
-    "fabricante": "Strasdfewing",
+    "modelo": "xps8082",
     "fecha_montaje": "2018-01-01",
-    "precio_del_pc": "213423",
+    "fecha_garantia" : "2022-01-01",
+    "precio_del_pc": "2000",
     "cantidad": "2",
-    "RAM": "12",
-    "tipo": "dsfs",
-    "comprador": "wegh"
+    "RAM": "24",
+    "tipo": "Torre",
+    "comprador": "Corte Ingles"
 }
 
 
