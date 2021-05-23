@@ -1,45 +1,52 @@
 ###
-GET http://localhost:3000/ordenador/
+GET https://git.heroku.com/mi-1api-rest.git/ordenador
+GET http://localhost:3000/ordenador
 //Obtiene todos los ordenadores
 ###
+GET https://git.heroku.com/mi-1api-rest.git/ordenador/:modelo
 GET http://localhost:3000/ordenador/:modelo
 //Hace un lookup de ambas colecciones agrupando por modelo
 
 
 ###
-POST http://localhost:3000/
+POST https://git.heroku.com/mi-1api-rest.git/ordenadorN
+GET http://localhost:3000/ordenadorN
 //Añadir nuevo ordenador
 Content-Type: application/json
 {
-    "fabricante" : "dell",
-    "modelo": "xps8080",
-    "tipo": "Semitorre",
-    "coste_compra": 123,
-    "capacidad_RAM": 312
+    "modelo": "asdfasd",
+    "fabricante": "Strasdfewing",
+    "fecha_montaje": "2018-01-01",
+    "precio_del_pc": "213423",
+    "cantidad": "2",
+    "RAM": "12",
+    "tipo": "dsfs",
+    "comprador": "wegh"
 }
 
 
 ###
-POST  http://localhost:3000/modificar/:xps8080
+POST  https://git.heroku.com/mi-1api-rest.git/modificar/:xps8080
+GET http://localhost:3000/ordenador
 Content-Type: application/json
 
 {
     "tipo": "Portatil",
 }
 ###
-POST  http://localhost:3000/pedido
+POST  https://git.heroku.com/mi-1api-rest.git/comprador
+POST http://localhost:3000/comprador
 //Añade nuevo pedido
 Content-Type: application/json
-
 {
-    "cod_pedido": "da2134",
-    "modelo_comprado": "xps8080",
-    "cantidad": 32,
-    "f_pedido": "2018-01-01",
-    "f_entrega": "2018-01-09"
+    "identif": "d354d",
+    "nombre_comprador": "asdfasf",
+    "presupuesto": 12,
+    "n_telefono": 12
 }
 ###
-POST  http://localhost:3000/modificarP/:cod_pedido
+POST  https://git.heroku.com/mi-1api-rest.git/modificarP/:cod_pedido
+GET http://localhost:3000/ordenador
 //Modifica el pedido
 Content-Type: application/json
 
@@ -51,15 +58,19 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/pedidos
+GET https://git.heroku.com/mi-1api-rest.git/pedidos
+GET http://localhost:3000/ordenador
 //Obtiene todos los pedidos
 ###
-GET http://localhost:3000/pedido/:cod_pedido
+GET https://git.heroku.com/mi-1api-rest.git/pedido/:cod_pedido
+GET http://localhost:3000/ordenador
 //Obtiene 1 pedido
 
 
 ###
-DELETE http://localhost:3000/borrar/:modelo
+DELETE https://git.heroku.com/mi-1api-rest.git/borrar/:modelo
+GET http://localhost:3000/ordenador
 ###
-DELETE http://localhost:3000/borrarP/:cod_pedido
+DELETE https://git.heroku.com/mi-1api-rest.git/borrarP/:cod_pedido
+GET http://localhost:3000/ordenador
 //Borrar

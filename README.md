@@ -47,8 +47,8 @@ ejecutar:
 - git add .
 - git commit -m "lo que sea"
 - git branch -M rama001   // Escogemos el nombre de la rama
-- heroku git:remote -a nombre_repositorio
-- git push heroku main
+- heroku git:remote -a mi-1api-rest
+- git push heroku master
 
 Una vez subido el proyecto tenemos que crear una variable de entorno desde la web de heroku:
 MONGODB_URI=direccion de tu base de datos en atlas

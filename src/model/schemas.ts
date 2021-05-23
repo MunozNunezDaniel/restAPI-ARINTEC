@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose'
 
 const CompradorSchema = new Schema({
-    _id: String,
+    _identif: String,
     _nombre_comprador: String,
     _presupuesto: Number,
     _n_telefono: Number,
