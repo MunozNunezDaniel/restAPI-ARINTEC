@@ -20,7 +20,7 @@ Content-Type: application/json
     "precio_del_pc": "2000",
     "cantidad": "2",
     "RAM": "24",
-    "tipo": "Torre",
+    "disco_duro": "500gb",
     "comprador": "Corte Ingles"
 }
 
