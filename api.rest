@@ -1,0 +1,65 @@
+###
+GET http://localhost:3000/ordenador/
+//Obtiene todos los ordenadores
+###
+GET http://localhost:3000/ordenador/:modelo
+//Hace un lookup de ambas colecciones agrupando por modelo
+
+
+###
+POST http://localhost:3000/
+//Añadir nuevo ordenador
+Content-Type: application/json
+{
+    "fabricante" : "dell",
+    "modelo": "xps8080",
+    "tipo": "Semitorre",
+    "coste_compra": 123,
+    "capacidad_RAM": 312
+}
+
+
+###
+POST  http://localhost:3000/modificar/:xps8080
+Content-Type: application/json
+
+{
+    "tipo": "Portatil",
+}
+###
+POST  http://localhost:3000/pedido
+//Añade nuevo pedido
+Content-Type: application/json
+
+{
+    "cod_pedido": "da2134",
+    "modelo_comprado": "xps8080",
+    "cantidad": 32,
+    "f_pedido": "2018-01-01",
+    "f_entrega": "2018-01-09"
+}
+###
+POST  http://localhost:3000/modificarP/:cod_pedido
+//Modifica el pedido
+Content-Type: application/json
+
+{
+    "modelo_comprado": "String",
+    "cantidad": 32,
+    "f_pedido": Date,
+    "f_entrega": Date
+}
+
+###
+GET http://localhost:3000/pedidos
+//Obtiene todos los pedidos
+###
+GET http://localhost:3000/pedido/:cod_pedido
+//Obtiene 1 pedido
+
+
+###
+DELETE http://localhost:3000/borrar/:modelo
+###
+DELETE http://localhost:3000/borrarP/:cod_pedido
+//Borrar
