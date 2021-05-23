@@ -257,3 +257,4 @@ private deleteComprador = async (req: Request, res: Response) => {
 const obj = new Routes()
 obj.misRutas()
 export const routes = obj.router
+
