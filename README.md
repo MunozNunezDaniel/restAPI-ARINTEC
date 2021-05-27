@@ -60,3 +60,9 @@ Ahora te mostrara una url que tienes que copiar y pegar en la variable de entorn
 //Comandos heroku
 Si está ejecutándose en heroku los mensajes de consola se ven con:
 - heroku logs -a <APP> --tail
+
+//URLs
+- restAPI Arintec
+https://mi-1api-rest.herokuapp.com
+- GitHub restAPI
+https://github.com/DanielMNpdv/restAPI-ARINTEC.git

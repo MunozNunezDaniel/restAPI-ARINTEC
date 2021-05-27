@@ -26,15 +26,16 @@ class Routes {
         await db.desconectarBD()
     }
 
+//arreglado
     private getOrdenadores = async (req:Request, res: Response) => {
         await db.conectarBD()
         .then( async ()=> {
-            const query = await Ordenadores.aggregate([
+            const query = await Compradores.aggregate([
                 {
                     $lookup: {
-                        from: 'compradores',
-                        localField: '_comprador',
-                        foreignField: '_nombre_comprador',
+                        from: 'ordenadores',
+                        localField: '_nombre_comprador',
+                        foreignField: '_comprador',
                         as: "_ordenadores_comprador"
                     }
                 }
@@ -47,21 +48,22 @@ class Routes {
         await db.desconectarBD()
     }
 
-    private getOrdenador = async (req:Request, res: Response) => {
-       const { modelo } = req.params
+//arreglado
+    private getCompr = async (req:Request, res: Response) => {
+       const { nombre_comprador } = req.params
         await db.conectarBD()
         .then( async ()=> {
-            const query = await Ordenadores.aggregate([
+            const query = await Compradores.aggregate([
                 {
                     $lookup: {
-                        from: 'compradores',
-                        localField: '_comprador',
-                        foreignField: '_nombre_comprador',
+                        from: 'ordenadores',
+                        localField: '_nombre_comprador',
+                        foreignField: '_comprador',
                         as: "_ordenadores_comprador"
                     }
                 },{
                     $match: {
-                        _modelo: modelo
+                        _nombre_comprador: nombre_comprador
                     }
                 }
             ])
@@ -147,11 +149,11 @@ class Routes {
         db.desconectarBD()
     }
 
-    private getComprador = async (req: Request, res: Response) => {
-        const { identif } = req.params
+    private getOrdenador = async (req: Request, res: Response) => {
+        const { modelo } = req.params
         await db.conectarBD()
         const x = await Compradores.find(
-                { _identif: identif }
+                { _modelo: modelo }
             )
         await db.desconectarBD()
         res.json(x)
@@ -237,23 +239,41 @@ private deleteComprador = async (req: Request, res: Response) => {
         }) 
     db.desconectarBD()
 }
-
+//Hay que añadir una nueva ruta que sea ordenador:/modelo y que en la funcion solo tenga un req.params
 
     misRutas(){
-        this._router.get('/ordenador', this.getOrd), //Obtiene todos los ordenadores Funciona
-        this._router.get('/ordenadores', this.getOrdenadores), //Hace un lookup de ambas colecciones Funciona
-        this._router.get('/ordenador/:modelo', this.getOrdenador),//Hace un lookup de ambas colecciones agrupando por modelo Funciona
+        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones Funciona
+        this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador
+        this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores Funciona
+        this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador Funciona
+        this._router.post('/compradormod/:identif', this.modificaComprador), // Funciona
+        this._router.delete('/compradorB/:identif', this.deleteComprador) //Funciona
+
+        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador (cambiar por ordenador) Funciona
+        this._router.get('/ordenadores', this.getOrd), //Obtiene todos los ordenadores Funciona
         this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador Funciona
         this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // Funciona
         this._router.post('/ordenadormod/:modelo', this.modificaOrdenador), //Funciona
-        this._router.get('/compradores', this.getCompradores), //Obtiene todos los compradores Funciona
-        this._router.get('/comprador/:identif', this.getComprador), //Obtiene 1 pedido Funciona
-        this._router.post('/compradorN', this.postComprador), //Añadir nuevo pedido Funciona
-        this._router.post('/compradormod/:identif', this.modificaComprador), // Funciona
-        this._router.delete('/compradorB/:identif', this.deleteComprador) //Funciona
     }
 }
 
+/*
+misRutas(){
+        this._router.get('/obr', this.getObr), //obtiene todas las obras
+        this._router.get('/obras', this.getObras), //Hace el lookup normal
+        this._router.get('/obra/:alias', this.getObra), //Hace el lookup agrupando por alias
+        this._router.post('/', this.postObra), //crea una nueva obra
+        this._router.delete('/borra/:alias', this.deleteObra), //Borra una obra por el alias
+        this._router.post('/actualiza/:alias', this.actualizaObra) 
+        
+        this._router.get('/plts', this.getPilotes), //Obtiene todos los pilotes
+        this._router.get('/plt/:identif', this.getPilote), //Obtiene 1 solo pilote
+        this._router.post('/pilotes', this.postPilote), //Crea un nuevo pilote
+        this._router.post('/actualizaP/:identif', this.actualizaPilote),
+        this._router.delete('/borraP/:identif', this.deletePilote)
+    }
+}
+*/
 const obj = new Routes()
 obj.misRutas()
 export const routes = obj.router
