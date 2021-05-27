@@ -253,7 +253,7 @@ private deleteComprador = async (req: Request, res: Response) => {
         this._router.get('/ordenadores', this.getOrd), //Obtiene todos los ordenadores Funciona
         this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador Funciona
         this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // Funciona
-        this._router.post('/ordenadormod/:modelo', this.modificaOrdenador), //Funciona
+        this._router.post('/ordenadormod/:modelo', this.modificaOrdenador) //Funciona
     }
 }
 

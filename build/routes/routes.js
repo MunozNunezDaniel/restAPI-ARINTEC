@@ -26,15 +26,16 @@ class Routes {
             });
             yield database_1.db.desconectarBD();
         });
+        //arreglado
         this.getOrdenadores = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD()
                 .then(() => __awaiter(this, void 0, void 0, function* () {
-                const query = yield schemas_1.Ordenadores.aggregate([
+                const query = yield schemas_1.Compradores.aggregate([
                     {
                         $lookup: {
-                            from: 'compradores',
-                            localField: '_comprador',
-                            foreignField: '_nombre_comprador',
+                            from: 'ordenadores',
+                            localField: '_nombre_comprador',
+                            foreignField: '_comprador',
                             as: "_ordenadores_comprador"
                         }
                     }
@@ -46,21 +47,22 @@ class Routes {
             });
             yield database_1.db.desconectarBD();
         });
-        this.getOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { modelo } = req.params;
+        //arreglado
+        this.getCompr = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { nombre_comprador } = req.params;
             yield database_1.db.conectarBD()
                 .then(() => __awaiter(this, void 0, void 0, function* () {
-                const query = yield schemas_1.Ordenadores.aggregate([
+                const query = yield schemas_1.Compradores.aggregate([
                     {
                         $lookup: {
-                            from: 'compradores',
-                            localField: '_comprador',
-                            foreignField: '_nombre_comprador',
+                            from: 'ordenadores',
+                            localField: '_nombre_comprador',
+                            foreignField: '_comprador',
                             as: "_ordenadores_comprador"
                         }
                     }, {
                         $match: {
-                            _modelo: modelo
+                            _nombre_comprador: nombre_comprador
                         }
                     }
                 ]);
@@ -72,16 +74,16 @@ class Routes {
             yield database_1.db.desconectarBD();
         });
         this.postOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { modelo, fabricante, fecha_montaje, precio_del_pc, cantidad, RAM, tipo, comprador } = req.body;
+            const { modelo, fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador } = req.body;
             yield database_1.db.conectarBD();
             const dSchema = {
                 _modelo: modelo,
-                _fabricante: fabricante,
                 _fecha_montaje: fecha_montaje,
+                _fecha_garantia: fecha_garantia,
                 _precio_del_pc: precio_del_pc,
                 _cantidad: cantidad,
                 _RAM: RAM,
-                _tipo: tipo,
+                _disco_duro: disco_duro,
                 _comprador: comprador
             };
             const oSchema = new schemas_1.Ordenadores(dSchema);
@@ -92,15 +94,15 @@ class Routes {
         });
         this.modificaOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { modelo } = req.params;
-            const { fabricante, fecha_montaje, precio_del_pc, cantidad, RAM, tipo, comprador } = req.body;
+            const { fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador } = req.body;
             yield database_1.db.conectarBD();
             yield schemas_1.Ordenadores.findOneAndUpdate({ _modelo: modelo }, {
-                _fabricante: fabricante,
                 _fecha_montaje: fecha_montaje,
+                _fecha_garantia: fecha_garantia,
                 _precio_del_pc: precio_del_pc,
                 _cantidad: cantidad,
                 _RAM: RAM,
-                _tipo: tipo,
+                _disco_duro: disco_duro,
                 _comprador: comprador
             }, {
                 new: true,
@@ -135,10 +137,10 @@ class Routes {
             });
             database_1.db.desconectarBD();
         });
-        this.getComprador = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { identif } = req.params;
+        this.getOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { modelo } = req.params;
             yield database_1.db.conectarBD();
-            const x = yield schemas_1.Compradores.find({ _identif: identif });
+            const x = yield schemas_1.Compradores.find({ _modelo: modelo });
             yield database_1.db.desconectarBD();
             res.json(x);
         });
@@ -215,20 +217,38 @@ class Routes {
     get router() {
         return this._router;
     }
+    //Hay que añadir una nueva ruta que sea ordenador:/modelo y que en la funcion solo tenga un req.params
     misRutas() {
-        this._router.get('/ordenador', this.getOrd), //Obtiene todos los ordenadores Funciona
-            this._router.get('/ordenadores', this.getOrdenadores), //Hace un lookup de ambas colecciones Funciona
-            this._router.get('/ordenador/:modelo', this.getOrdenador), //Hace un lookup de ambas colecciones agrupando por modelo Funciona
-            this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador Funciona
-            this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // Funciona
-            this._router.post('/ordenadormod/:modelo', this.modificaOrdenador), //Funciona
-            this._router.get('/compradores', this.getCompradores), //Obtiene todos los compradores Funciona
-            this._router.get('/comprador/:identif', this.getComprador), //Obtiene 1 pedido Funciona
-            this._router.post('/compradorN', this.postComprador), //Añadir nuevo pedido Funciona
+        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones Funciona
+            this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador
+            this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores Funciona
+            this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador Funciona
             this._router.post('/compradormod/:identif', this.modificaComprador), // Funciona
             this._router.delete('/compradorB/:identif', this.deleteComprador); //Funciona
+        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador (cambiar por ordenador) Funciona
+            this._router.get('/ordenadores', this.getOrd), //Obtiene todos los ordenadores Funciona
+            this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador Funciona
+            this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // Funciona
+            this._router.post('/ordenadormod/:modelo', this.modificaOrdenador); //Funciona
     }
 }
+/*
+misRutas(){
+        this._router.get('/obr', this.getObr), //obtiene todas las obras
+        this._router.get('/obras', this.getObras), //Hace el lookup normal
+        this._router.get('/obra/:alias', this.getObra), //Hace el lookup agrupando por alias
+        this._router.post('/', this.postObra), //crea una nueva obra
+        this._router.delete('/borra/:alias', this.deleteObra), //Borra una obra por el alias
+        this._router.post('/actualiza/:alias', this.actualizaObra)
+        
+        this._router.get('/plts', this.getPilotes), //Obtiene todos los pilotes
+        this._router.get('/plt/:identif', this.getPilote), //Obtiene 1 solo pilote
+        this._router.post('/pilotes', this.postPilote), //Crea un nuevo pilote
+        this._router.post('/actualizaP/:identif', this.actualizaPilote),
+        this._router.delete('/borraP/:identif', this.deletePilote)
+    }
+}
+*/
 const obj = new Routes();
 obj.misRutas();
 exports.routes = obj.router;

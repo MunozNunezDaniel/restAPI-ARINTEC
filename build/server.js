@@ -24,8 +24,7 @@ class Server {
     config() {
         return __awaiter(this, void 0, void 0, function* () {
             this.app.set('port', process.env.PORT || 3000);
-            this.app.use(express_1.default.json()); // para que nuestro servidor entienda
-            // los formatos json desde clientes
+            this.app.use(express_1.default.json());
             // this.app.use(cors()) // evitar el error CORS
             this.app.use((req, res, next) => {
                 res.header('Access-Control-Allow-Origin', '*');

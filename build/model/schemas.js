@@ -12,12 +12,12 @@ const CompradorSchema = new mongoose_1.Schema({
 });
 const OrdenadorSchema = new mongoose_1.Schema({
     _modelo: String,
-    _fabricante: String,
     _fecha_montaje: Date,
+    _fecha_garantia: Date,
     _precio_del_pc: Number,
     _cantidad: Number,
     _RAM: Number,
-    _tipo: String,
+    _disco_duro: String,
     _comprador: String
 }, {
     collection: 'ordenadores'
