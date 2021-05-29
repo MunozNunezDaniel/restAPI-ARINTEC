@@ -10,18 +10,17 @@ GET http://localhost:3000/ordenador/:modelo
 
 ###
 POST https://mi-1api-rest.herokuapp.com/ordenadorN
-GET http://localhost:3000/ordenadorN
-//Añadir nuevo ordenador
 Content-Type: application/json
 {
-    "modelo": "xps8082",
-    "fecha_montaje": "2018-01-01",
-    "fecha_garantia" : "2022-01-01",
-    "precio_del_pc": "2000",
-    "cantidad": "2",
+    "modelo": "Lenovo-h7",
+    "fabricante": "Lenovo",
+    "fecha_montaje": "2020-01-01",
+    "fecha_garantia" : "2023-04-09",
+    "precio_del_pc": "1500",
+    "cantidad": "1",
     "RAM": "24",
-    "disco_duro": "500gb",
-    "comprador": "Corte Ingles"
+    "tipo": "Portatil",
+    "comprador": "Corte ingles"
 }
 
 
