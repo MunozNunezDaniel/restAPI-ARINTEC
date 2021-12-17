@@ -243,17 +243,17 @@ private deleteComprador = async (req: Request, res: Response) => {
 
     misRutas(){
         this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones Funciona
-        this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador
+        this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador Funciona
         this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores Funciona
-        this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador 
-        this._router.post('/compradormod/:identif', this.modificaComprador), // 
-        this._router.delete('/compradorB/:identif', this.deleteComprador) //
+        this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador NO VA
+        this._router.post('/compradormod/:identif', this.modificaComprador), // NO VA Sale null
+        this._router.delete('/compradorB/:identif', this.deleteComprador) // Funciona
 
-        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador
+        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador NO VA
         this._router.get('/ordenadores', this.getOrd), //Obtiene todos los ordenadores Funciona
         this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador Funciona
-        this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // 
-        this._router.post('/ordenadormod/:modelo', this.modificaOrdenador) //
+        this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // Funciona
+        this._router.post('/ordenadormod/:modelo', this.modificaOrdenador) // NO VA Sale null
     }
 }
 

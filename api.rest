@@ -38,11 +38,11 @@ POST http://localhost:3000/comprador
 //Añade nuevo pedido
 Content-Type: application/json
 {
-    "identif": "fe345",
-    "nombre_comprador": "sdfgf",
-    "presupuesto": 2,
-    "n_telefono": 678
-}
+        "_identif": "q2qr3",
+        "_nombre_comprador": "Juan",
+        "_presupuesto": 20000,
+        "_n_telefono": 954778901,
+    }
 ###
 POST  https://mi-1api-rest.herokuapp.com/modificarP/:cod_pedido
 GET http://localhost:3000/ordenador
