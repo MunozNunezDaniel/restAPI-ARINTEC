@@ -245,7 +245,7 @@ class Routes {
         this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador
 
         this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador
-        this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores Funciona
+        this._router.get('/ordenadores', this.getOrd), //Obtiene todos los ordenadores Funciona
         this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador Funciona
         this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // Funciona
         this._router.post('/ordenadormod/:modelo', this.modificaOrdenador) //Modificar ordenador
