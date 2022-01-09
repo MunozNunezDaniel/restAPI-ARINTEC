@@ -15,10 +15,10 @@ POST https://restapi-arintec.herokuapp.com/compradorN
 //Añade nuevo comprador
 Content-Type: application/json
 {
-    "identif": "q2qr3",
-    "nombre_comprador": "Juan",
-    "presupuesto": 20000,
-    "n_telefono": 954778901,
+    "identif": "UR34O",
+    "nombre_comprador": "Daniel",
+    "presupuesto": 10000,
+    "n_telefono": 686993301
 }
 ###
 
@@ -28,15 +28,15 @@ POST https://restapi-arintec.herokuapp.com/ordenadorN
 //Añade nuevo ordenador
 Content-Type: application/json
 {
-    "modelo": "Lenovo-h7",
-    "fecha_montaje": "2020-01-01",
-    "fecha_garantia" : "2023-04-09",
-    "precio_del_pc": 1500,
-    "cantidad": 1,
-    "RAM": 24,
-    "disco_duro": "2TB",
-    "tipo": "Portatil",
-    "comprador": "Corte ingles"
+    "modelo": "ASUS-h7",
+    "fecha_montaje": "2022-01-01",
+    "fecha_garantia" : "2024-04-09",
+    "precio_del_pc": 2000,
+    "cantidad": 2,
+    "RAM": 36,
+    "disco_duro": "4TB",
+    "tipo": "Sobremesa",
+    "comprador": "Daniel"
 }
 
 
@@ -72,7 +72,7 @@ GET http://localhost:3000/ordenador
 
 
 ###
-DELETE https://restapi-arintec.herokuapp.com/borrar/:modelo
+DELETE https://restapi-arintec.herokuapp.com/ordenadorB/:modelo
 GET http://localhost:3000/ordenador
 ###
 
