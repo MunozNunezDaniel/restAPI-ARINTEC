@@ -148,7 +148,7 @@ class Routes {
     private getOrdenador = async (req: Request, res: Response) => {
         const { modelo } = req.params
         await db.conectarBD()
-        const x = await Compradores.find(
+        const x = await Ordenadores.find(
                 { _modelo: modelo }
             )
         await db.desconectarBD()
@@ -237,18 +237,18 @@ class Routes {
     }
 
     misRutas(){
-        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones Funciona
-        this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador Funciona
+        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones
+        this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador
         this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
         this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
         this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador NO FUNCIONA
         this._router.post('/compradormod/:identif', this.modificaComprador), //Modificar comprador NO FUNCIONA
 
-        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador
+        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador 
         this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO
         this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador HECHO
         this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), //Borrar ordenador HECHO
-        this._router.post('/ordenadormod/:modelo', this.modificaOrdenador) //Modificar ordenador
+        this._router.post('/ordenadormod/:modelo', this.modificaOrdenador) //Modificar ordenador HECHO
     }
 }
 
