@@ -1,15 +1,31 @@
 ###
-GET https://mi-1api-rest.herokuapp.com/ordenador
-GET http://localhost:3000/ordenador
+GET https://restapi-arintec.herokuapp.com/ordenadores
+GET http://localhost:3000/ordenadores
 //Obtiene todos los ordenadores
 ###
-GET https://mi-1api-rest.herokuapp.com/ordenador/:modelo
-GET http://localhost:3000/ordenador/:modelo
-//Hace un lookup de ambas colecciones agrupando por modelo
 
+###
+GET https://restapi-arintec.herokuapp.com/compradoresT
+GET http://localhost:3000/compradoresT
+//Obtiene todos los compradores
+###
+
+###
+POST https://restapi-arintec.herokuapp.com/compradorN
+//Añade nuevo comprador
+Content-Type: application/json
+{
+    "identif": "q2qr3",
+    "nombre_comprador": "Juan",
+    "presupuesto": 20000,
+    "n_telefono": 954778901,
+}
+###
 
 ###
 POST http://localhost:3000/ordenadorN
+POST https://restapi-arintec.herokuapp.com/ordenadorN
+//Añade nuevo ordenador
 Content-Type: application/json
 {
     "modelo": "Lenovo-h7",
@@ -25,26 +41,15 @@ Content-Type: application/json
 
 
 ###
-POST  https://mi-1api-rest.herokuapp.com/modificar/:xps8080
+POST  https://restapi-arintec.herokuapp.com/modificar/:xps8080
 GET http://localhost:3000/ordenador
 Content-Type: application/json
 
 {
     "tipo": "Portatil",
 }
-###
-POST https://mi-1api-rest.herokuapp.com/comprador
-POST http://localhost:3000/comprador
-//Añade nuevo pedido
-Content-Type: application/json
-{
-    "_identif": "q2qr3",
-    "_nombre_comprador": "Juan",
-    "_presupuesto": 20000,
-    "_n_telefono": 954778901,
-}
-###
-POST  https://mi-1api-rest.herokuapp.com/modificarP/:cod_pedido
+
+POST  https://restapi-arintec.herokuapp.com/modificarP/:cod_pedido
 GET http://localhost:3000/ordenador
 //Modifica el pedido
 Content-Type: application/json
@@ -57,19 +62,25 @@ Content-Type: application/json
 }
 
 ###
-GET https://mi-1api-rest.herokuapp.com/pedidos
+GET https://restapi-arintec.herokuapp.com/pedidos
 GET http://localhost:3000/ordenador
 //Obtiene todos los pedidos
 ###
-GET https://mi-1api-rest.herokuapp.com/pedido/:cod_pedido
+GET https://restapi-arintec.herokuapp.com/pedido/:cod_pedido
 GET http://localhost:3000/ordenador
 //Obtiene 1 pedido
 
 
 ###
-DELETE https://mi-1api-rest.herokuapp.com/borrar/:modelo
+DELETE https://restapi-arintec.herokuapp.com/borrar/:modelo
 GET http://localhost:3000/ordenador
 ###
-DELETE https://mi-1api-rest.herokuapp.com/borrarP/:cod_pedido
+
+DELETE https://restapi-arintec.herokuapp.com/borrarP/:cod_pedido
 GET http://localhost:3000/ordenador
 //Borrar
+
+
+GET https://restapi-arintec.herokuapp.com/ordenador/:modelo
+GET http://localhost:3000/ordenador/:modelo
+//Hace un lookup de ambas colecciones agrupando por modelo
