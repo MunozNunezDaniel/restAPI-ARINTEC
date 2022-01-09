@@ -9,16 +9,16 @@ GET http://localhost:3000/ordenador/:modelo
 
 
 ###
-POST https://mi-1api-rest.herokuapp.com/ordenadorN
+POST http://localhost:3000/ordenadorN
 Content-Type: application/json
 {
     "modelo": "Lenovo-h7",
-    "fabricante": "Lenovo",
     "fecha_montaje": "2020-01-01",
     "fecha_garantia" : "2023-04-09",
-    "precio_del_pc": "1500",
-    "cantidad": "1",
-    "RAM": "24",
+    "precio_del_pc": 1500,
+    "cantidad": 1,
+    "RAM": 24,
+    "disco_duro": "2TB",
     "tipo": "Portatil",
     "comprador": "Corte ingles"
 }
@@ -38,11 +38,11 @@ POST http://localhost:3000/comprador
 //Añade nuevo pedido
 Content-Type: application/json
 {
-        "_identif": "q2qr3",
-        "_nombre_comprador": "Juan",
-        "_presupuesto": 20000,
-        "_n_telefono": 954778901,
-    }
+    "_identif": "q2qr3",
+    "_nombre_comprador": "Juan",
+    "_presupuesto": 20000,
+    "_n_telefono": 954778901,
+}
 ###
 POST  https://mi-1api-rest.herokuapp.com/modificarP/:cod_pedido
 GET http://localhost:3000/ordenador

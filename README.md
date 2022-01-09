@@ -1,4 +1,7 @@
-En este proyecto se calcularán los costes de los precios con IVA de los ordenadores vendidos, ademas de calcular cuales son los más antiguos y anticuados
+# Practica05 API Rest: Tienda de informática
+# Daniel Muñoz Nuñez
+## En esta práctica crearemos una API rest que será una parte fundamental de nuestro proyecto final ya que se encargará de gestionar las conexiones a nuestra base de datos en la nube, el proyecto final se basará en una tienda de informatica con dos colecciones: ordenadores y compradores
+
 
 //Comandos a introducir para empezar a trabajar (-g es global y se hace 1 sola vez):
 
@@ -26,6 +29,9 @@ npx tsc -w
 
 //Para ver a donde apunta cada rama
 - git log --oneline --decorate
+
+//para cambiar el Repositorio
+git remote set-url origin https://github.com/MunozNunezDaniel/restAPI-ARINTEC.git
 
 //Para Cambiar de rama
 - git checkout rama002
@@ -60,9 +66,3 @@ Ahora te mostrara una url que tienes que copiar y pegar en la variable de entorn
 //Comandos heroku
 Si está ejecutándose en heroku los mensajes de consola se ven con:
 - heroku logs -a <APP> --tail
-
-//URLs
-- restAPI Arintec
-https://mi-1api-rest.herokuapp.com
-- GitHub restAPI
-https://github.com/DanielMNpdv/restAPI-ARINTEC.git

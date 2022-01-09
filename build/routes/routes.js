@@ -26,7 +26,6 @@ class Routes {
             });
             yield database_1.db.desconectarBD();
         });
-        //arreglado
         this.getOrdenadores = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD()
                 .then(() => __awaiter(this, void 0, void 0, function* () {
@@ -47,7 +46,6 @@ class Routes {
             });
             yield database_1.db.desconectarBD();
         });
-        //arreglado
         this.getCompr = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { nombre_comprador } = req.params;
             yield database_1.db.conectarBD()
@@ -108,7 +106,6 @@ class Routes {
                 new: true,
                 runValidators: true
             })
-                //////Añadir mas mensajes de error//////
                 .then((doc) => {
                 if (doc == null) {
                     console.log('El modelo que desea modificar no existe');
@@ -119,7 +116,6 @@ class Routes {
                     res.json(doc);
                 }
             })
-                //////////////////////////////////////////
                 .catch((err) => {
                 console.log('Error: ' + err);
                 res.json({ error: 'Error: ' + err });
@@ -217,38 +213,20 @@ class Routes {
     get router() {
         return this._router;
     }
-    //Hay que añadir una nueva ruta que sea ordenador:/modelo y que en la funcion solo tenga un req.params
     misRutas() {
         this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones Funciona
-            this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador
+            this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador Funciona
             this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores Funciona
-            this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador 
-            this._router.post('/compradormod/:identif', this.modificaComprador), // 
-            this._router.delete('/compradorB/:identif', this.deleteComprador); //
+            this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador
+            this._router.post('/compradormod/:identif', this.modificaComprador), //Modificar comprador
+            this._router.delete('/compradorB/:identif', this.deleteComprador); //Borrar comprador
         this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador
             this._router.get('/ordenadores', this.getOrd), //Obtiene todos los ordenadores Funciona
             this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador Funciona
-            this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // 
-            this._router.post('/ordenadormod/:modelo', this.modificaOrdenador); //
+            this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // Funciona
+            this._router.post('/ordenadormod/:modelo', this.modificaOrdenador); //Modificar ordenador
     }
 }
-/*
-misRutas(){
-        this._router.get('/obr', this.getObr), //obtiene todas las obras
-        this._router.get('/obras', this.getObras), //Hace el lookup normal
-        this._router.get('/obra/:alias', this.getObra), //Hace el lookup agrupando por alias
-        this._router.post('/', this.postObra), //crea una nueva obra
-        this._router.delete('/borra/:alias', this.deleteObra), //Borra una obra por el alias
-        this._router.post('/actualiza/:alias', this.actualizaObra)
-        
-        this._router.get('/plts', this.getPilotes), //Obtiene todos los pilotes
-        this._router.get('/plt/:identif', this.getPilote), //Obtiene 1 solo pilote
-        this._router.post('/pilotes', this.postPilote), //Crea un nuevo pilote
-        this._router.post('/actualizaP/:identif', this.actualizaPilote),
-        this._router.delete('/borraP/:identif', this.deletePilote)
-    }
-}
-*/
 const obj = new Routes();
 obj.misRutas();
 exports.routes = obj.router;

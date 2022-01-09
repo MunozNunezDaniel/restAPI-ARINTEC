@@ -26,7 +26,6 @@ class Routes {
         await db.desconectarBD()
     }
 
-//arreglado
     private getOrdenadores = async (req:Request, res: Response) => {
         await db.conectarBD()
         .then( async ()=> {
@@ -48,7 +47,6 @@ class Routes {
         await db.desconectarBD()
     }
 
-//arreglado
     private getCompr = async (req:Request, res: Response) => {
        const { nombre_comprador } = req.params
         await db.conectarBD()
@@ -115,8 +113,7 @@ class Routes {
                     runValidators: true
                 }  
             )
-            //////Añadir mas mensajes de error//////
-            .then( (doc) => {
+            .then( (doc: null) => {
                     if (doc==null){
                         console.log('El modelo que desea modificar no existe')
                         res.json({"Error":"No existe el modelo "+modelo})
@@ -127,8 +124,7 @@ class Routes {
                     
                 }
             )
-            //////////////////////////////////////////
-            .catch( (err) => {
+            .catch( (err: string) => {
                 console.log('Error: '+err)
                 res.json({error: 'Error: '+err })
             }
@@ -207,7 +203,7 @@ class Routes {
                     runValidators: true
                 }  
             )
-            .then( (doc) => {
+            .then( (doc: null) => {
                 if (doc==null){
                     console.log('El comprador que desea modificar no existe')
                     res.json({"Error":"No existe el comprador "+identif})
@@ -218,7 +214,7 @@ class Routes {
                 
             }
         )
-            .catch( (err) => {
+            .catch( (err: string) => {
                 console.log('Error: '+err)
                 res.json({error: 'Error: '+err })
             }
@@ -227,53 +223,35 @@ class Routes {
     }
 
 
-private deleteComprador = async (req: Request, res: Response) => {
-    const { identif } = req.params
-    console.log(identif)
-    await db.conectarBD()
-    await Compradores.findOneAndDelete( { _identif: identif } )
-    .then(
-        (doc: any) => {
-            console.log(doc)
-            res.json(doc)
-        }) 
-    db.desconectarBD()
-}
-//Hay que añadir una nueva ruta que sea ordenador:/modelo y que en la funcion solo tenga un req.params
+    private deleteComprador = async (req: Request, res: Response) => {
+        const { identif } = req.params
+        console.log(identif)
+        await db.conectarBD()
+        await Compradores.findOneAndDelete( { _identif: identif } )
+        .then(
+            (doc: any) => {
+                console.log(doc)
+                res.json(doc)
+            }) 
+        db.desconectarBD()
+    }
 
     misRutas(){
         this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones Funciona
         this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador Funciona
         this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores Funciona
-        this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador NO VA
-        this._router.post('/compradormod/:identif', this.modificaComprador), // NO VA Sale null
-        this._router.delete('/compradorB/:identif', this.deleteComprador) // Funciona
+        this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador
+        this._router.post('/compradormod/:identif', this.modificaComprador), //Modificar comprador
+        this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador
 
-        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador NO VA
+        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador
         this._router.get('/ordenadores', this.getOrd), //Obtiene todos los ordenadores Funciona
         this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador Funciona
         this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), // Funciona
-        this._router.post('/ordenadormod/:modelo', this.modificaOrdenador) // NO VA Sale null
+        this._router.post('/ordenadormod/:modelo', this.modificaOrdenador) //Modificar ordenador
     }
 }
 
-/*
-misRutas(){
-        this._router.get('/obr', this.getObr), //obtiene todas las obras
-        this._router.get('/obras', this.getObras), //Hace el lookup normal
-        this._router.get('/obra/:alias', this.getObra), //Hace el lookup agrupando por alias
-        this._router.post('/', this.postObra), //crea una nueva obra
-        this._router.delete('/borra/:alias', this.deleteObra), //Borra una obra por el alias
-        this._router.post('/actualiza/:alias', this.actualizaObra) 
-        
-        this._router.get('/plts', this.getPilotes), //Obtiene todos los pilotes
-        this._router.get('/plt/:identif', this.getPilote), //Obtiene 1 solo pilote
-        this._router.post('/pilotes', this.postPilote), //Crea un nuevo pilote
-        this._router.post('/actualizaP/:identif', this.actualizaPilote),
-        this._router.delete('/borraP/:identif', this.deletePilote)
-    }
-}
-*/
 const obj = new Routes()
 obj.misRutas()
 export const routes = obj.router
