@@ -35,7 +35,7 @@ class Routes {
                             from: 'ordenadores',
                             localField: '_nombre_comprador',
                             foreignField: '_comprador',
-                            as: "_ordenadores_comprador"
+                            as: "_ordenadores_comprados"
                         }
                     }
                 ]);
@@ -56,7 +56,7 @@ class Routes {
                             from: 'ordenadores',
                             localField: '_nombre_comprador',
                             foreignField: '_comprador',
-                            as: "_ordenadores_comprador"
+                            as: "_ordenadores_comprados"
                         }
                     }, {
                         $match: {
@@ -119,17 +119,6 @@ class Routes {
                 .catch((err) => {
                 console.log('Error: ' + err);
                 res.json({ error: 'Error: ' + err });
-            });
-            database_1.db.desconectarBD();
-        });
-        this.deleteOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { modelo } = req.params;
-            console.log(modelo);
-            yield database_1.db.conectarBD();
-            yield schemas_1.Ordenadores.findOneAndDelete({ _modelo: modelo })
-                .then((doc) => {
-                console.log(doc);
-                res.json(doc);
             });
             database_1.db.desconectarBD();
         });
@@ -208,19 +197,30 @@ class Routes {
             });
             database_1.db.desconectarBD();
         });
+        this.deleteOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
+            const { modelo } = req.params;
+            console.log(modelo);
+            yield database_1.db.conectarBD();
+            yield schemas_1.Ordenadores.findOneAndDelete({ _modelo: modelo })
+                .then((doc) => {
+                console.log(doc);
+                res.json(doc);
+            });
+            database_1.db.desconectarBD();
+        });
         this._router = express_1.Router();
     }
     get router() {
         return this._router;
     }
     misRutas() {
-        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones
+        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones HECHO
             this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador
             this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
             this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
             this._router.delete('/compradorB/:identif', this.deleteComprador); //Borrar comprador NO FUNCIONA
         this._router.post('/compradormod/:identif', this.modificaComprador), //Modificar comprador NO FUNCIONA
-            this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador 
+            this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
             this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO
             this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador HECHO
             this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), //Borrar ordenador HECHO

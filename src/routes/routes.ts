@@ -35,7 +35,7 @@ class Routes {
                         from: 'ordenadores',
                         localField: '_nombre_comprador',
                         foreignField: '_comprador',
-                        as: "_ordenadores_comprador"
+                        as: "_ordenadores_comprados"
                     }
                 }
             ])
@@ -57,7 +57,7 @@ class Routes {
                         from: 'ordenadores',
                         localField: '_nombre_comprador',
                         foreignField: '_comprador',
-                        as: "_ordenadores_comprador"
+                        as: "_ordenadores_comprados"
                     }
                 },{
                     $match: {
@@ -132,18 +132,7 @@ class Routes {
         db.desconectarBD()
     }
 
-    private deleteOrdenador = async (req: Request, res: Response) => {
-        const { modelo } = req.params
-        console.log(modelo)
-        await db.conectarBD()
-        await Ordenadores.findOneAndDelete( { _modelo:modelo } )
-        .then(
-            (doc: any) => {
-                console.log(doc)
-                res.json(doc)
-            }) 
-        db.desconectarBD()
-    }
+    
 
     private getOrdenador = async (req: Request, res: Response) => {
         const { modelo } = req.params
@@ -227,7 +216,7 @@ class Routes {
         const { identif } = req.params
         console.log(identif)
         await db.conectarBD()
-        await Compradores.findOneAndDelete( { _identif: identif } )
+        await Compradores.findOneAndDelete( { _identif:identif } )
         .then(
             (doc: any) => {
                 console.log(doc)
@@ -236,15 +225,28 @@ class Routes {
         db.desconectarBD()
     }
 
+    private deleteOrdenador = async (req: Request, res: Response) => {
+            const { modelo } = req.params
+            console.log(modelo)
+            await db.conectarBD()
+            await Ordenadores.findOneAndDelete( { _modelo:modelo } )
+            .then(
+                (doc: any) => {
+                    console.log(doc)
+                    res.json(doc)
+                }) 
+            db.desconectarBD()
+        }
+    
     misRutas(){
-        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones
+        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones HECHO
         this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador
         this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
         this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
         this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador NO FUNCIONA
         this._router.post('/compradormod/:identif', this.modificaComprador), //Modificar comprador NO FUNCIONA
 
-        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador 
+        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
         this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO
         this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador HECHO
         this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), //Borrar ordenador HECHO
