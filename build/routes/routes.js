@@ -215,7 +215,7 @@ class Routes {
     }
     misRutas() {
         this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones HECHO
-            this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador
+            this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador HECHO
             this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
             this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
             this._router.delete('/compradorB/:identif', this.deleteComprador); //Borrar comprador NO FUNCIONA
