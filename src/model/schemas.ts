@@ -24,6 +24,7 @@ const OrdenadorSchema = new Schema({
 }
 )
 
+
 export const Ordenadores = model('ordenadores', OrdenadorSchema  )
 export const Compradores = model('compradores', CompradorSchema  )
 
