@@ -24,7 +24,7 @@ npx tsc -w
 - git add .
 - git commit -m "lo que sea"
 - git branch -M main   // Escogemos el nombre de la rama
-- git remote add origin https://github.com/DanielMNpdv/restAPI-ARINTEC.git
+- git remote add origin https://github.com/MunozNunezDaniel/restAPI-ARINTEC.git
 - git push -u origin main
 
 //Para ver a donde apunta cada rama
