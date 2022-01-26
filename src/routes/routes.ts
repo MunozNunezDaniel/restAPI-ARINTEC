@@ -243,7 +243,7 @@ class Routes {
         this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador HECHO
         this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
         this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
-        this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador NO FUNCIONA
+        this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador FUNCIONA
         this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador NO FUNCIONA
 
         this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
