@@ -208,7 +208,7 @@ class Routes {
             });
             database_1.db.desconectarBD();
         });
-        this._router = express_1.Router();
+        this._router = (0, express_1.Router)();
     }
     get router() {
         return this._router;
@@ -218,13 +218,13 @@ class Routes {
             this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador HECHO
             this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
             this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
-            this._router.delete('/compradorB/:identif', this.deleteComprador); //Borrar comprador NO FUNCIONA
-        this._router.post('/compradormod/:identif', this.modificaComprador), //Modificar comprador NO FUNCIONA
+            this._router.delete('/compradorB/:identif', this.deleteComprador); //Borrar comprador FUNCIONA
+        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador FUNCIONA
             this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
             this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO
             this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador HECHO
             this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), //Borrar ordenador HECHO
-            this._router.post('/ordenadormod/:modelo', this.modificaOrdenador); //Modificar ordenador HECHO
+            this._router.put('/ordenadormod/:modelo', this.modificaOrdenador); //Modificar ordenador HECHO
     }
 }
 const obj = new Routes();

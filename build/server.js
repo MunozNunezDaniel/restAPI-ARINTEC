@@ -17,7 +17,7 @@ const morgan_1 = __importDefault(require("morgan"));
 const routes_1 = require("./routes/routes");
 class Server {
     constructor() {
-        this.app = express_1.default();
+        this.app = (0, express_1.default)();
         this.config();
         this.routes();
     }
@@ -25,7 +25,7 @@ class Server {
         return __awaiter(this, void 0, void 0, function* () {
             this.app.set('port', process.env.PORT || 3000);
             this.app.use(express_1.default.json());
-            this.app.use(morgan_1.default('dev')); //Para mostrar las URL invocadas
+            this.app.use((0, morgan_1.default)('dev')); //Para mostrar las URL invocadas
             this.app.use((req, res, next) => {
                 res.header('Access-Control-Allow-Origin', '*');
                 res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');

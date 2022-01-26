@@ -109,7 +109,7 @@ class Routes {
                 _comprador: comprador
                 },
                 {
-                    new: true,
+                    new: true, // para retornar el documento después de que se haya aplicado la modificación
                     runValidators: true
                 }  
             )
@@ -244,7 +244,7 @@ class Routes {
         this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
         this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
         this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador FUNCIONA
-        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador NO FUNCIONA
+        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador FUNCIONA
 
         this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
         this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO

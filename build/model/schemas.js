@@ -22,5 +22,5 @@ const OrdenadorSchema = new mongoose_1.Schema({
 }, {
     collection: 'ordenadores'
 });
-exports.Ordenadores = mongoose_1.model('ordenadores', OrdenadorSchema);
-exports.Compradores = mongoose_1.model('compradores', CompradorSchema);
+exports.Ordenadores = (0, mongoose_1.model)('ordenadores', OrdenadorSchema);
+exports.Compradores = (0, mongoose_1.model)('compradores', CompradorSchema);
