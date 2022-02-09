@@ -11,14 +11,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.routes = void 0;
 const express_1 = require("express");
-const schemas_1 = require("../model/schemas");
+const ordenadores_1 = require("../model/ordenadores");
+const compradores_1 = require("../model/compradores");
 const database_1 = require("../database/database");
 class Routes {
     constructor() {
+        //Listar todos los ordenadores
         this.getOrd = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD()
                 .then(() => __awaiter(this, void 0, void 0, function* () {
-                const query = yield schemas_1.Ordenadores.find();
+                const query = yield ordenadores_1.Ordenadores.find();
                 res.json(query);
             }))
                 .catch((mensaje) => {
@@ -26,10 +28,11 @@ class Routes {
             });
             yield database_1.db.desconectarBD();
         });
+        //Muestra los todos los compradores con un nuevo campo compuesto de un array de los ordenadores que ha comprado
         this.getOrdenadores = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD()
                 .then(() => __awaiter(this, void 0, void 0, function* () {
-                const query = yield schemas_1.Compradores.aggregate([
+                const query = yield compradores_1.Compradores.aggregate([
                     {
                         $lookup: {
                             from: 'ordenadores',
@@ -46,11 +49,12 @@ class Routes {
             });
             yield database_1.db.desconectarBD();
         });
+        //Muestra los ordenadores que ha comprado un determinado comprador 
         this.getCompr = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { nombre_comprador } = req.params;
             yield database_1.db.conectarBD()
                 .then(() => __awaiter(this, void 0, void 0, function* () {
-                const query = yield schemas_1.Compradores.aggregate([
+                const query = yield compradores_1.Compradores.aggregate([
                     {
                         $lookup: {
                             from: 'ordenadores',
@@ -71,8 +75,9 @@ class Routes {
             });
             yield database_1.db.desconectarBD();
         });
+        //Crear un nuevo ordenador
         this.postOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { modelo, fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador } = req.body;
+            const { modelo, fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador, duracion_bateria, refrig_liquida } = req.body;
             yield database_1.db.conectarBD();
             const dSchema = {
                 _modelo: modelo,
@@ -82,26 +87,31 @@ class Routes {
                 _cantidad: cantidad,
                 _RAM: RAM,
                 _disco_duro: disco_duro,
-                _comprador: comprador
+                _comprador: comprador,
+                _duracion_bateria: duracion_bateria,
+                _refrig_liquida: refrig_liquida
             };
-            const oSchema = new schemas_1.Ordenadores(dSchema);
+            const oSchema = new ordenadores_1.Ordenadores(dSchema);
             yield oSchema.save()
                 .then((doc) => res.send(doc))
                 .catch((err) => res.send('Error: ' + err));
             yield database_1.db.desconectarBD();
         });
+        //Modificar un ordenador mediante put pasandole el modelo
         this.modificaOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { modelo } = req.params;
-            const { fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador } = req.body;
+            const { fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador, duracion_bateria, refrig_liquida } = req.body;
             yield database_1.db.conectarBD();
-            yield schemas_1.Ordenadores.findOneAndUpdate({ _modelo: modelo }, {
+            yield ordenadores_1.Ordenadores.findOneAndUpdate({ _modelo: modelo }, {
                 _fecha_montaje: fecha_montaje,
                 _fecha_garantia: fecha_garantia,
                 _precio_del_pc: precio_del_pc,
                 _cantidad: cantidad,
                 _RAM: RAM,
                 _disco_duro: disco_duro,
-                _comprador: comprador
+                _comprador: comprador,
+                _duracion_bateria: duracion_bateria,
+                _refrig_liquida: refrig_liquida
             }, {
                 new: true,
                 runValidators: true
@@ -122,18 +132,20 @@ class Routes {
             });
             database_1.db.desconectarBD();
         });
+        //Listar un solo ordenador pasandole el modelo
         this.getOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { modelo } = req.params;
             yield database_1.db.conectarBD();
-            const x = yield schemas_1.Ordenadores.find({ _modelo: modelo });
+            const x = yield ordenadores_1.Ordenadores.find({ _modelo: modelo });
             yield database_1.db.desconectarBD();
             res.json(x);
         });
+        //Listar compradores
         this.getCompradores = (req, res) => __awaiter(this, void 0, void 0, function* () {
             yield database_1.db.conectarBD()
                 .then((mensaje) => __awaiter(this, void 0, void 0, function* () {
                 console.log(mensaje);
-                const query = yield schemas_1.Compradores.find({});
+                const query = yield compradores_1.Compradores.find({});
                 console.log(query);
                 res.json(query);
             }))
@@ -143,6 +155,7 @@ class Routes {
             });
             yield database_1.db.desconectarBD();
         });
+        //Crear un nuevo comprador
         this.postComprador = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { identif, nombre_comprador, presupuesto, n_telefono } = req.body;
             yield database_1.db.conectarBD();
@@ -152,17 +165,18 @@ class Routes {
                 _presupuesto: presupuesto,
                 _n_telefono: n_telefono
             };
-            const oSchema = new schemas_1.Compradores(dSchema);
+            const oSchema = new compradores_1.Compradores(dSchema);
             yield oSchema.save()
                 .then((doc) => res.send(doc))
                 .catch((err) => res.send('Error: ' + err));
             yield database_1.db.desconectarBD();
         });
+        //Modificar comprador pasandole el identificador
         this.modificaComprador = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { identif } = req.params;
             const { nombre_comprador, presupuesto, n_telefono } = req.body;
             yield database_1.db.conectarBD();
-            yield schemas_1.Compradores.findOneAndUpdate({ _identif: identif }, {
+            yield compradores_1.Compradores.findOneAndUpdate({ _identif: identif }, {
                 _nombre_comprador: nombre_comprador,
                 _presupuesto: presupuesto,
                 _n_telefono: n_telefono
@@ -186,22 +200,24 @@ class Routes {
             });
             database_1.db.desconectarBD();
         });
+        //Borrar comprador pasandole el identificador
         this.deleteComprador = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { identif } = req.params;
             console.log(identif);
             yield database_1.db.conectarBD();
-            yield schemas_1.Compradores.findOneAndDelete({ _identif: identif })
+            yield compradores_1.Compradores.findOneAndDelete({ _identif: identif })
                 .then((doc) => {
                 console.log(doc);
                 res.json(doc);
             });
             database_1.db.desconectarBD();
         });
+        //Borrar ordenador pasandole el modelo
         this.deleteOrdenador = (req, res) => __awaiter(this, void 0, void 0, function* () {
             const { modelo } = req.params;
             console.log(modelo);
             yield database_1.db.conectarBD();
-            yield schemas_1.Ordenadores.findOneAndDelete({ _modelo: modelo })
+            yield ordenadores_1.Ordenadores.findOneAndDelete({ _modelo: modelo })
                 .then((doc) => {
                 console.log(doc);
                 res.json(doc);
@@ -218,8 +234,8 @@ class Routes {
             this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador HECHO
             this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
             this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
-            this._router.delete('/compradorB/:identif', this.deleteComprador); //Borrar comprador FUNCIONA
-        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador FUNCIONA
+            this._router.delete('/compradorB/:identif', this.deleteComprador); //Borrar comprador HECHO
+        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador HECHO
             this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
             this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO
             this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador HECHO

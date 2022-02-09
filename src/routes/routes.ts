@@ -1,5 +1,6 @@
 import {Request, Response, Router } from 'express'
-import { Ordenadores, Compradores } from '../model/schemas'
+import { Ordenadores } from '../model/ordenadores'
+import { Compradores } from '../model/compradores'
 import { db } from '../database/database'
 
 class Routes {
@@ -12,6 +13,7 @@ class Routes {
         return this._router
     }
 
+//Listar todos los ordenadores
     private getOrd = async (req: Request, res: Response) => {
         await db.conectarBD()
         .then( async () => {
@@ -26,6 +28,7 @@ class Routes {
         await db.desconectarBD()
     }
 
+//Muestra los todos los compradores con un nuevo campo compuesto de un array de los ordenadores que ha comprado
     private getOrdenadores = async (req:Request, res: Response) => {
         await db.conectarBD()
         .then( async ()=> {
@@ -47,6 +50,7 @@ class Routes {
         await db.desconectarBD()
     }
 
+//Muestra los ordenadores que ha comprado un determinado comprador 
     private getCompr = async (req:Request, res: Response) => {
        const { nombre_comprador } = req.params
         await db.conectarBD()
@@ -73,8 +77,9 @@ class Routes {
         await db.desconectarBD()
     }
 
+//Crear un nuevo ordenador
     private postOrdenador = async (req: Request, res: Response) => {
-        const { modelo, fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador} = req.body
+        const { modelo, fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador, duracion_bateria, refrig_liquida} = req.body
         await db.conectarBD()
         const dSchema={
             _modelo: modelo,
@@ -84,7 +89,9 @@ class Routes {
             _cantidad: cantidad,
             _RAM: RAM,
             _disco_duro: disco_duro,
-            _comprador: comprador
+            _comprador: comprador,
+            _duracion_bateria: duracion_bateria,
+            _refrig_liquida: refrig_liquida
         }
         const oSchema = new Ordenadores(dSchema)
         await oSchema.save()
@@ -93,9 +100,10 @@ class Routes {
         await db.desconectarBD()
     }
     
+//Modificar un ordenador mediante put pasandole el modelo
     private modificaOrdenador = async (req: Request, res: Response) => {
         const { modelo } = req.params
-        const { fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador} = req.body
+        const { fecha_montaje, fecha_garantia, precio_del_pc, cantidad, RAM, disco_duro, comprador, duracion_bateria, refrig_liquida} = req.body
         await db.conectarBD()
         await Ordenadores.findOneAndUpdate(
                 { _modelo: modelo }, 
@@ -106,7 +114,9 @@ class Routes {
                 _cantidad: cantidad,
                 _RAM: RAM,
                 _disco_duro: disco_duro,
-                _comprador: comprador
+                _comprador: comprador,
+                _duracion_bateria: duracion_bateria,
+                _refrig_liquida: refrig_liquida
                 },
                 {
                     new: true, // para retornar el documento después de que se haya aplicado la modificación
@@ -132,8 +142,7 @@ class Routes {
         db.desconectarBD()
     }
 
-    
-
+//Listar un solo ordenador pasandole el modelo
     private getOrdenador = async (req: Request, res: Response) => {
         const { modelo } = req.params
         await db.conectarBD()
@@ -144,6 +153,7 @@ class Routes {
         res.json(x)
     }
 
+//Listar compradores
     private getCompradores = async (req: Request, res: Response) => {
         await db.conectarBD()
         .then( async (mensaje) => {
@@ -160,6 +170,7 @@ class Routes {
         await db.desconectarBD()
     }
 
+//Crear un nuevo comprador
     private postComprador = async (req: Request, res: Response) => {
         const { identif, nombre_comprador, presupuesto , n_telefono } = req.body
         await db.conectarBD()
@@ -176,6 +187,7 @@ class Routes {
         await db.desconectarBD()
     }
     
+//Modificar comprador pasandole el identificador
     private modificaComprador = async (req: Request, res: Response) => {
         const { identif } = req.params
         const { nombre_comprador, presupuesto , n_telefono } = req.body
@@ -211,7 +223,7 @@ class Routes {
         db.desconectarBD()
     }
 
-
+//Borrar comprador pasandole el identificador
     private deleteComprador = async (req: Request, res: Response) => {
         const { identif } = req.params
         console.log(identif)
@@ -225,6 +237,7 @@ class Routes {
         db.desconectarBD()
     }
 
+//Borrar ordenador pasandole el modelo
     private deleteOrdenador = async (req: Request, res: Response) => {
             const { modelo } = req.params
             console.log(modelo)
@@ -243,8 +256,8 @@ class Routes {
         this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador HECHO
         this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
         this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
-        this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador FUNCIONA
-        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador FUNCIONA
+        this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador HECHO
+        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador HECHO
 
         this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
         this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO
