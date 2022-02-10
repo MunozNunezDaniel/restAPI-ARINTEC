@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const morgan_1 = __importDefault(require("morgan"));
+const cors_1 = __importDefault(require("cors"));
 const routes_1 = require("./routes/routes");
 class Server {
     constructor() {
@@ -24,8 +25,9 @@ class Server {
     config() {
         return __awaiter(this, void 0, void 0, function* () {
             this.app.set('port', process.env.PORT || 3000);
-            this.app.use(express_1.default.json());
+            this.app.use(express_1.default.json()); // Para que nuestro servidor entienda los formatos json desde clientes
             this.app.use((0, morgan_1.default)('dev')); //Para mostrar las URL invocadas
+            this.app.use((0, cors_1.default)()); // evitar el error CORS
             this.app.use((req, res, next) => {
                 res.header('Access-Control-Allow-Origin', '*');
                 res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
