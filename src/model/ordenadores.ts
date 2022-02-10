@@ -13,7 +13,7 @@ const OrdenadorSchema = new Schema({
     _disco_duro: String,
     _comprador: String,
     _duracion_bateria: Number,
-    _refrig_liquida: Boolean
+    _refrig_liquida: String
 }
 )
 
@@ -38,7 +38,7 @@ export type OrdSobremesa = {
     _RAM: Number | null,
     _disco_duro: String | null,
     _comprador: String | null,
-    _refrig_liquida: Boolean
+    _refrig_liquida: String | null
 }
 
 export const Ordenadores = model('ordenadores', OrdenadorSchema  )

@@ -172,10 +172,9 @@ class Routes {
 
 //Crear un nuevo comprador
     private postComprador = async (req: Request, res: Response) => {
-        const { identif, nombre_comprador, presupuesto , n_telefono } = req.body
+        const { nombre_comprador, presupuesto, n_telefono } = req.body
         await db.conectarBD()
         const dSchema={
-            _identif : identif,
             _nombre_comprador: nombre_comprador,
             _presupuesto: presupuesto,
             _n_telefono: n_telefono
@@ -189,13 +188,12 @@ class Routes {
     
 //Modificar comprador pasandole el identificador
     private modificaComprador = async (req: Request, res: Response) => {
-        const { identif } = req.params
-        const { nombre_comprador, presupuesto , n_telefono } = req.body
+        const { nombre_comprador } = req.params
+        const { presupuesto , n_telefono } = req.body
         await db.conectarBD()
         await Compradores.findOneAndUpdate(
-                { _identif: identif }, 
+                { _nombre_comprador: nombre_comprador }, 
                 {
-                    _nombre_comprador: nombre_comprador,
                     _presupuesto: presupuesto,
                     _n_telefono: n_telefono
                 },
@@ -207,9 +205,9 @@ class Routes {
             .then( (doc: any) => {
                 if (doc==null){
                     console.log('El comprador que desea modificar no existe')
-                    res.json({"Error":"No existe el comprador "+identif})
+                    res.json({"Error":"No existe el comprador "+nombre_comprador})
                 } else {
-                    console.log('Se ha modificado correctamente el comprador '+identif) 
+                    console.log('Se ha modificado correctamente el comprador '+nombre_comprador) 
                     res.json(doc)
                 }
                 
@@ -225,10 +223,10 @@ class Routes {
 
 //Borrar comprador pasandole el identificador
     private deleteComprador = async (req: Request, res: Response) => {
-        const { identif } = req.params
-        console.log(identif)
+        const { nombre_comprador } = req.params
+        console.log(nombre_comprador)
         await db.conectarBD()
-        await Compradores.findOneAndDelete( { _identif:identif } )
+        await Compradores.findOneAndDelete( { _nombre_comprador: nombre_comprador } )
         .then(
             (doc: any) => {
                 console.log(doc)
@@ -256,8 +254,8 @@ class Routes {
         this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador HECHO
         this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
         this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
-        this._router.delete('/compradorB/:identif', this.deleteComprador) //Borrar comprador HECHO
-        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador HECHO
+        this._router.delete('/compradorB/:nombre_comprador', this.deleteComprador) //Borrar comprador HECHO
+        this._router.put('/compradormod/:nombre_comprador', this.modificaComprador), //Modificar comprador HECHO
 
         this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
         this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO

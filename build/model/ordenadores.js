@@ -15,6 +15,6 @@ const OrdenadorSchema = new mongoose_1.Schema({
     _disco_duro: String,
     _comprador: String,
     _duracion_bateria: Number,
-    _refrig_liquida: Boolean
+    _refrig_liquida: String
 });
 exports.Ordenadores = (0, mongoose_1.model)('ordenadores', OrdenadorSchema);

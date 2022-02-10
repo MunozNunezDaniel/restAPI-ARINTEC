@@ -157,10 +157,9 @@ class Routes {
         });
         //Crear un nuevo comprador
         this.postComprador = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { identif, nombre_comprador, presupuesto, n_telefono } = req.body;
+            const { nombre_comprador, presupuesto, n_telefono } = req.body;
             yield database_1.db.conectarBD();
             const dSchema = {
-                _identif: identif,
                 _nombre_comprador: nombre_comprador,
                 _presupuesto: presupuesto,
                 _n_telefono: n_telefono
@@ -173,11 +172,10 @@ class Routes {
         });
         //Modificar comprador pasandole el identificador
         this.modificaComprador = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { identif } = req.params;
-            const { nombre_comprador, presupuesto, n_telefono } = req.body;
+            const { nombre_comprador } = req.params;
+            const { presupuesto, n_telefono } = req.body;
             yield database_1.db.conectarBD();
-            yield compradores_1.Compradores.findOneAndUpdate({ _identif: identif }, {
-                _nombre_comprador: nombre_comprador,
+            yield compradores_1.Compradores.findOneAndUpdate({ _nombre_comprador: nombre_comprador }, {
                 _presupuesto: presupuesto,
                 _n_telefono: n_telefono
             }, {
@@ -187,10 +185,10 @@ class Routes {
                 .then((doc) => {
                 if (doc == null) {
                     console.log('El comprador que desea modificar no existe');
-                    res.json({ "Error": "No existe el comprador " + identif });
+                    res.json({ "Error": "No existe el comprador " + nombre_comprador });
                 }
                 else {
-                    console.log('Se ha modificado correctamente el comprador ' + identif);
+                    console.log('Se ha modificado correctamente el comprador ' + nombre_comprador);
                     res.json(doc);
                 }
             })
@@ -202,10 +200,10 @@ class Routes {
         });
         //Borrar comprador pasandole el identificador
         this.deleteComprador = (req, res) => __awaiter(this, void 0, void 0, function* () {
-            const { identif } = req.params;
-            console.log(identif);
+            const { nombre_comprador } = req.params;
+            console.log(nombre_comprador);
             yield database_1.db.conectarBD();
-            yield compradores_1.Compradores.findOneAndDelete({ _identif: identif })
+            yield compradores_1.Compradores.findOneAndDelete({ _nombre_comprador: nombre_comprador })
                 .then((doc) => {
                 console.log(doc);
                 res.json(doc);
@@ -234,8 +232,8 @@ class Routes {
             this._router.get('/comprador/:nombre_comprador', this.getCompr), //Hace un lookup de ambas colecciones agrupando por nombre del comprador HECHO
             this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
             this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
-            this._router.delete('/compradorB/:identif', this.deleteComprador); //Borrar comprador HECHO
-        this._router.put('/compradormod/:identif', this.modificaComprador), //Modificar comprador HECHO
+            this._router.delete('/compradorB/:nombre_comprador', this.deleteComprador); //Borrar comprador HECHO
+        this._router.put('/compradormod/:nombre_comprador', this.modificaComprador), //Modificar comprador HECHO
             this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
             this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO
             this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador HECHO
