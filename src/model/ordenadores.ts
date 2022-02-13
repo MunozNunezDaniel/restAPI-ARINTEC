@@ -17,29 +17,5 @@ const OrdenadorSchema = new Schema({
 }
 )
 
-export type OrdPortatil = {
-    _modelo: String | null
-    _fecha_montaje: String | null,
-    _fecha_garantia: String | null,
-    _precio_del_pc: Number | null,
-    _cantidad: String | null,
-    _RAM: Number | null,
-    _disco_duro: String | null,
-    _comprador: String | null,
-    _duracion_bateria: Number | null
-}
-
-export type OrdSobremesa = {
-    _modelo: String | null
-    _fecha_montaje: String | null,
-    _fecha_garantia: String | null,
-    _precio_del_pc: Number | null,
-    _cantidad: String | null,
-    _RAM: Number | null,
-    _disco_duro: String | null,
-    _comprador: String | null,
-    _refrig_liquida: String | null
-}
-
 export const Ordenadores = model('ordenadores', OrdenadorSchema  )
 

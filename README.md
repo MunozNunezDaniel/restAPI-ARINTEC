@@ -18,6 +18,10 @@ npx tsc -w
 - tsc -w
 - npm run dev
 
+//Para crear las colecciones en mongodb local
+- mongo
+- use "nombre DB"
+- db.ordenadores.insertMany([])
 
 //Para subir a GitHub
 - git init
