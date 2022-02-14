@@ -250,18 +250,18 @@ class Routes {
         }
     
     misRutas(){
-        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones HECHO
-        this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador HECHO
-        this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores HECHO
-        this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador HECHO
-        this._router.delete('/compradorB/:nombre_comprador', this.deleteComprador) //Borrar comprador HECHO
-        this._router.put('/compradormod/:nombre_comprador', this.modificaComprador), //Modificar comprador HECHO
+        this._router.get('/compradores', this.getOrdenadores), //Hace un lookup de ambas colecciones 
+        this._router.get('/comprador/:nombre_comprador', this.getCompr),//Hace un lookup de ambas colecciones agrupando por nombre del comprador
+        this._router.get('/compradoresT', this.getCompradores), //Obtiene todos los compradores 
+        this._router.post('/compradorN', this.postComprador), //Añadir nuevo comprador 
+        this._router.delete('/compradorB/:nombre_comprador', this.deleteComprador) //Borrar comprador 
+        this._router.put('/compradormod/:nombre_comprador', this.modificaComprador), //Modificar comprador 
 
-        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador HECHO
-        this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores HECHO
-        this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador HECHO
-        this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), //Borrar ordenador HECHO
-        this._router.put('/ordenadormod/:modelo', this.modificaOrdenador) //Modificar ordenador HECHO
+        this._router.get('/ordenador/:modelo', this.getOrdenador), //Obtiene 1 ordenador 
+        this._router.get('/ordenadoresT', this.getOrd), //Obtiene todos los ordenadores 
+        this._router.post('/ordenadorN', this.postOrdenador), //Añadir nuevo ordenador 
+        this._router.delete('/ordenadorB/:modelo', this.deleteOrdenador), //Borrar ordenador 
+        this._router.put('/ordenadormod/:modelo', this.modificaOrdenador) //Modificar ordenador 
     }
 }
 
